@@ -2045,15 +2045,15 @@ my_monster_selection <span class="op">=</span> <span class="fn">@subset</span>(d
                         20\}$;
                         each outcome has a $\frac{1}{20} = 5\%$ chance. To hit a monster, the player needs:</p>
 
-                    $$\text{d20 roll} + \text{modifier} \geq \text{AC}$$
+                    $$\text{d20 roll} + \text{modifiers} \geq \text{AC}$$
 
                     <p>So the probability of hitting is:</p>
 
-                    $$P(\text{hit}) = \frac{\text{number of rolls that meet or exceed (AC - modifier)}}{20}$$
+                    $$P(\text{hit}) = \frac{\text{number of rolls that meet or exceed (AC - modifiers)}}{20}$$
 
                     <p>With two special cases from the D&amp;D rules: a natural 20 always hits (minimum 5% chance
                         regardless of
-                        AC), and a natural 1 always misses (maximum 95% chance regardless of modifier).</p>
+                        AC), and a natural 1 always misses (maximum 95% chance regardless of modifiers).</p>
 
                     <p>This is structurally identical to any threshold-detection problem in statistics or engineering.
                     </p>

@@ -82,7 +82,7 @@
             background-blend-mode: multiply;
         }
 
-        /* Second grain pass — finer fiber texture */
+        /* Second grain pass: finer fiber texture */
         body::before {
             content: '';
             position: fixed;
@@ -181,7 +181,7 @@
 
         .page-header .byline {
             font-family: 'EB Garamond', serif;
-            font-size: 0.9rem;
+            font-size: 1.05rem;
             font-style: italic;
             color: #c4a88a;
             position: relative;
@@ -191,7 +191,7 @@
 
         .page-header .institution {
             font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #a08a70;
             position: relative;
@@ -220,7 +220,7 @@
             position: relative;
         }
 
-        /* Foxing spots — faint age stains */
+        /* Foxing spots: faint age stains */
         article::before {
             content: '';
             position: absolute;
@@ -235,7 +235,7 @@
                 radial-gradient(ellipse 50px 35px at 55% 92%, rgba(140, 110, 60, 0.03) 0%, transparent 70%);
         }
 
-        article > * {
+        article>* {
             position: relative;
             z-index: 1;
         }
@@ -444,6 +444,59 @@
             text-transform: uppercase;
             letter-spacing: 0.12em;
             opacity: 0.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.45rem;
+            right: 3.8rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            color: var(--code-text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            padding: 0.2rem 0.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 2;
+            letter-spacing: 0.04em;
+        }
+
+        pre:hover .copy-btn {
+            opacity: 0.7;
+        }
+
+        .copy-btn:hover {
+            opacity: 1 !important;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .copy-btn.copied {
+            opacity: 1 !important;
+            color: var(--syn-string);
+            border-color: var(--syn-string);
+        }
+
+        pre.output .copy-btn {
+            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.04);
+            border-color: var(--border);
+        }
+
+        pre.output:hover .copy-btn {
+            opacity: 0.7;
+        }
+
+        pre.output .copy-btn:hover {
+            background: rgba(0, 0, 0, 0.08);
+            opacity: 1 !important;
+        }
+
+        pre.output .copy-btn.copied {
+            color: #2a7e3b;
+            border-color: #2a7e3b;
         }
 
         pre code {
@@ -712,6 +765,117 @@
             letter-spacing: 0.4em;
         }
 
+        /* --- ELVISH INFO BOXES --- */
+        .elvish-box {
+            position: relative;
+            background: linear-gradient(180deg, rgba(245, 236, 215, 0.6) 0%, rgba(237, 226, 200, 0.8) 100%);
+            border: 2px solid var(--border-strong);
+            border-radius: 6px;
+            padding: 2.2rem 2rem 1.8rem;
+            margin: 1.8rem 0 2.2rem;
+            box-shadow:
+                0 2px 12px var(--shadow),
+                inset 0 0 20px rgba(160, 140, 104, 0.06);
+        }
+
+        /* Outer decorative border via box-shadow trick */
+        .elvish-box::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        /* Inner golden filigree line */
+        .elvish-box::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(148, 17, 32, 0.12);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        .elvish-box .elvish-title {
+            font-family: 'Cinzel Decorative', 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.06em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .elvish-box .elvish-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .elvish-box .elvish-content p {
+            margin: 0.4rem 0 0.6rem;
+        }
+
+        /* SVG corner ornaments */
+        .elvish-corner {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            z-index: 2;
+            opacity: 0.55;
+        }
+
+        .elvish-corner svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .elvish-corner.top-left {
+            top: -2px;
+            left: -2px;
+        }
+
+        .elvish-corner.top-right {
+            top: -2px;
+            right: -2px;
+            transform: scaleX(-1);
+        }
+
+        .elvish-corner.bottom-left {
+            bottom: -2px;
+            left: -2px;
+            transform: scaleY(-1);
+        }
+
+        .elvish-corner.bottom-right {
+            bottom: -2px;
+            right: -2px;
+            transform: scale(-1, -1);
+        }
+
+        /* Top/bottom center vine ornament */
+        .elvish-vine {
+            display: block;
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.5em;
+            color: var(--accent);
+            opacity: 0.35;
+            position: relative;
+            z-index: 1;
+        }
+
+        .elvish-vine.top {
+            margin-bottom: 0.6rem;
+        }
+
+        .elvish-vine.bottom {
+            margin-top: 0.8rem;
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 640px) {
             html {
@@ -780,21 +944,89 @@
             <!-- INTRODUCTION -->
             <h2>Introduction</h2>
 
-            <h3>What is Dungeons &amp; Dragons?</h3>
-
-            <p class="drop-cap">Dungeons &amp; Dragons (D&amp;D) is a tabletop role-playing game where players navigate a
-                story guided by a <strong>Dungeon Master (DM)</strong>, who designs the world, controls monsters, and
-                adjudicates rules. Combat is resolved by rolling a 20-sided die (d20). Every monster has a stat block with
-                key attributes: <strong>Hit Points (HP)</strong>, the damage it can absorb; <strong>Armor Class
-                    (AC)</strong>, the d20 threshold to land a hit; and <strong>Challenge Rating (CR)</strong>, a rough
-                difficulty index for the party.</p>
+            <div class="elvish-box">
+                <span class="elvish-corner top-left"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner top-right"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner bottom-left"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner bottom-right"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-vine top">❧ ✾ ❧</span>
+                <div class="elvish-title">What is Dungeons &amp; Dragons?</div>
+                <div class="elvish-content">
+                    <p>Dungeons &amp; Dragons (D&amp;D) is a tabletop role-playing game where players navigate a
+                        story guided by a <strong>Dungeon Master (DM)</strong>, who designs the world, controls
+                        monsters, and
+                        adjudicates rules. Combat is resolved by rolling a 20-sided die (d20). Every monster has a stat
+                        block with
+                        key attributes: <strong>Hit Points (HP)</strong>, the damage it can absorb; <strong>Armor Class
+                            (AC)</strong>, the d20 threshold to land a hit; and <strong>Challenge Rating (CR)</strong>,
+                        a rough
+                        difficulty index for the party.</p>
+                </div>
+                <span class="elvish-vine bottom">❧ ✾ ❧</span>
+            </div>
 
             <h3>Why Data-Informed Dungeon Mastering?</h3>
 
-            <p class="drop-cap">A DM preparing encounters faces a design problem: the Monster Manual contains hundreds of
-                creatures, and browsing by intuition misses options. Treating monster selection as a <strong>data management
-                    problem</strong> changes this — you can filter, sort, group, and visualize attributes programmatically,
-                asking precise questions like <em>"Which Large undead have AC below 14?"</em>. This is the same principle
+            <p class="drop-cap">A DM preparing encounters faces a design problem: the Monster Manual contains hundreds
+                of
+                creatures, and browsing by hand is tedious and error-prone. Treating monster selection as a <strong>data
+                    management
+                    problem</strong> changes this: you can filter, sort, group, and visualize attributes
+                programmatically,
+                asking precise questions like <em>"Which Large undead have AC below 14?"</em>. This is the same
+                principle
                 behind any evidence-based workflow: systematic exploration of your option space leads to better
                 decisions.</p>
 
@@ -811,30 +1043,98 @@
                     <li>Install <a href="https://julialang.org/downloads/">Julia</a> (v1.9 or later recommended).</li>
                     <li>Install <a href="https://code.visualstudio.com/">VS Code</a> and the
                         <a href="https://marketplace.visualstudio.com/items?itemName=julialang.language-julia">Julia
-                            extension</a>.</li>
-                    <li>Open the <code>.ipynb</code> notebook file in VS Code — the Julia extension provides full
+                            extension</a>.
+                    </li>
+                    <li>Open the <code>.ipynb</code> notebook file in VS Code; the Julia extension provides full
                         notebook support with syntax highlighting, inline plots, and a built-in REPL.</li>
                     <li>When prompted, install the required packages:
                         <code>CSV</code>, <code>DataFrames</code>, <code>DataFramesMeta</code>,
-                        <code>Statistics</code>, <code>StatsPlots</code>.</li>
+                        <code>Statistics</code>, <code>StatsPlots</code>.
+                    </li>
                 </ol>
             </div>
 
-            <h3>Why Julia?</h3>
-
-            <p class="drop-cap"><a href="https://julialang.org/">Julia</a> is an open-source language designed for
-                technical computing. It resolves a common tension: languages easy to write (Python, R) tend to be slow,
-                while fast languages (C, Fortran) are harder to prototype in. Julia compiles just-in-time, so readable
-                high-level code runs at speeds comparable to compiled languages. Its syntax reads close to mathematical
-                notation, and its ecosystem covers statistics, data manipulation, and visualization. If you are new to
-                Julia, the <a href="https://docs.julialang.org/en/v1/">official documentation</a> and
-                <a href="https://juliaacademy.com/">Julia Academy</a> are good starting points.</p>
+            <div class="elvish-box">
+                <span class="elvish-corner top-left"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner top-right"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner bottom-left"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner bottom-right"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-vine top">❧ ✾ ❧</span>
+                <div class="elvish-title">Why Julia?</div>
+                <div class="elvish-content">
+                    <p><a href="https://julialang.org/">Julia</a> is an open-source language designed for
+                        technical computing. It resolves a common tension: languages easy to write (Python, R) tend to
+                        be slow,
+                        while fast languages (C, Fortran) are harder to prototype in. Julia compiles just-in-time, so
+                        readable
+                        high-level code runs at speeds comparable to compiled languages. Its syntax reads close to
+                        mathematical
+                        notation, and its ecosystem covers statistics, data manipulation, and visualization. If you are
+                        new to
+                        Julia, the <a href="https://docs.julialang.org/en/v1/">official documentation</a> and
+                        <a href="https://juliaacademy.com/">Julia Academy</a> are good starting points.
+                    </p>
+                </div>
+                <span class="elvish-vine bottom">❧ ✾ ❧</span>
+            </div>
 
             <figure>
                 <img src="Figures/julia_repl.png"
                     alt="Screenshot of the Julia REPL (Read-Eval-Print Loop) interactive terminal">
                 <figcaption>The Julia REPL: an interactive terminal where you can test expressions,
-                load packages, and explore data line by line before committing to a script.</figcaption>
+                    load packages, and explore data line by line before committing to a script.</figcaption>
             </figure>
 
             <hr>
@@ -862,9 +1162,10 @@
     dpi <span class="op">=</span> <span class="num">150</span>
 )</code></pre>
 
-            <p class="drop-cap">A <strong>DataFrame</strong> is a spreadsheet in code: rows are records (monsters), columns
+            <p class="drop-cap">A <strong>DataFrame</strong> is a spreadsheet in code: rows are records (monsters),
+                columns
                 are attributes (HP, size, type). This structure lets you filter, group, summarize, and visualize
-                patterns — the same way for any tabular data.</p>
+                patterns, the same way for any tabular data.</p>
 
             <p>To load a CSV file into a DataFrame in Julia:</p>
 
@@ -879,65 +1180,65 @@ df_monsters <span class="op">=</span> CSV.<span class="fn">read</span>(<span cla
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Size</th>
                             <th>Type</th>
-                            <th>HP</th>
+                            <th>Alignment</th>
                             <th>AC</th>
-                            <th>CR</th>
-                            <th>Speed</th>
+                            <th>HP</th>
                             <th>Str</th>
+                            <th>Speed</th>
+                            <th>CR</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Aboleth</td>
-                            <td>Large</td>
                             <td>Aberration</td>
-                            <td>135</td>
+                            <td>Lawful Evil</td>
                             <td>17</td>
-                            <td>10</td>
-                            <td>10</td>
+                            <td>135</td>
                             <td>21</td>
+                            <td>10</td>
+                            <td>10</td>
                         </tr>
                         <tr>
                             <td>Acolyte</td>
-                            <td>Medium</td>
                             <td>Humanoid (any race)</td>
+                            <td>Any alignment</td>
+                            <td>10</td>
                             <td>9</td>
                             <td>10</td>
-                            <td>1/4</td>
                             <td>30</td>
-                            <td>10</td>
+                            <td>1/4</td>
                         </tr>
                         <tr>
                             <td>Adult Black Dragon</td>
-                            <td>Huge</td>
                             <td>Dragon</td>
-                            <td>195</td>
+                            <td>Chaotic Evil</td>
                             <td>19</td>
-                            <td>14</td>
-                            <td>40</td>
+                            <td>195</td>
                             <td>23</td>
+                            <td>40</td>
+                            <td>14</td>
                         </tr>
                         <tr>
                             <td>Adult Blue Dragon</td>
-                            <td>Huge</td>
                             <td>Dragon</td>
-                            <td>225</td>
+                            <td>Lawful Evil</td>
                             <td>19</td>
-                            <td>16</td>
-                            <td>40</td>
+                            <td>225</td>
                             <td>25</td>
+                            <td>40</td>
+                            <td>16</td>
                         </tr>
                         <tr>
                             <td>Adult Brass Dragon</td>
-                            <td>Huge</td>
                             <td>Dragon</td>
-                            <td>172</td>
+                            <td>Chaotic Good</td>
                             <td>18</td>
-                            <td>13</td>
-                            <td>40</td>
+                            <td>172</td>
                             <td>23</td>
+                            <td>40</td>
+                            <td>13</td>
                         </tr>
                     </tbody>
                 </table>
@@ -958,15 +1259,17 @@ df_monsters <span class="op">=</span> CSV.<span class="fn">read</span>(<span cla
                 class="output"><code>Column1  name  size  monster_type  alignment  ac  hp  strength  str_mod  dex  dex_mod  con  con_mod  intel  int_mod  wis  wis_mod  cha  cha_mod  senses  languages  cr  str_save  dex_save  con_save  int_save  wis_save  cha_save  speed  swim  fly  climb  burrow  number_legendary_actions  history  perception  stealth  persuasion  insight  deception  arcana  religion  acrobatics  athletics  intimidation</code></pre>
 
             <p>The dataset contains 45 columns. For this notebook, we will focus on a manageable subset:
-                <strong>size</strong>, <strong>monster_type</strong>, <strong>alignment</strong>, <strong>hp</strong>,
-                <strong>ac</strong>, <strong>cr</strong>, <strong>speed</strong>, and <strong>strength</strong>.</p>
+                <strong>name</strong>, <strong>monster_type</strong>, <strong>alignment</strong>, <strong>ac</strong>,
+                <strong>hp</strong>, <strong>strength</strong>, <strong>speed</strong>, and <strong>cr</strong>.
+            </p>
 
             <hr>
 
             <!-- SECTION 2 -->
             <h2>Exploring Categorical Features</h2>
 
-            <p class="drop-cap">Before computing statistics, check what values exist in your data. This prevents surprises
+            <p class="drop-cap">Before computing statistics, check what values exist in your data. This prevents
+                surprises
                 like typos, unexpected categories, or missing entries.</p>
 
             <h3>How many different sizes exist?</h3>
@@ -1097,7 +1400,8 @@ df_monsters <span class="op">=</span> CSV.<span class="fn">read</span>(<span cla
 
             <p>The <code>DataFramesMeta</code> package provides the <code>@groupby</code> macro, which partitions a
                 DataFrame into sub-tables by a categorical variable, similar to SQL's <code>GROUP BY</code> or pandas'
-                <code>groupby()</code>.</p>
+                <code>groupby()</code>.
+            </p>
 
             <pre><code><span class="kw">function</span> <span class="fn">plot_distributions_by_category</span>(df, categorical_col, numeric_cols;
         title<span class="op">=</span><span class="str">"Distributions by Category"</span>,
@@ -1171,7 +1475,7 @@ df_monsters <span class="op">=</span> CSV.<span class="fn">read</span>(<span cla
             <h2>Filtering and Subsetting</h2>
 
             <p class="drop-cap">Real analysis rarely uses the entire dataset at once. You filter to answer specific
-                questions — in our case, <em>"Which Large monsters have surprisingly low HP?"</em></p>
+                questions; in our case, <em>"Which Large monsters have surprisingly low HP?"</em></p>
 
             <h3>Are there Large monsters with low HP?</h3>
 
@@ -1191,33 +1495,152 @@ low_hp_large <span class="op">=</span> <span class="fn">@subset</span>(df_monste
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Size</th>
                             <th>Type</th>
-                            <th>HP</th>
+                            <th>Alignment</th>
                             <th>AC</th>
+                            <th>HP</th>
+                            <th>Str</th>
+                            <th>Speed</th>
                             <th>CR</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Axe Beak</td><td>Large</td><td>Beast</td><td>19</td><td>11</td><td>1/4</td></tr>
-                        <tr><td>Camel</td><td>Large</td><td>Beast</td><td>15</td><td>9</td><td>1/8</td></tr>
-                        <tr><td>Constrictor Snake</td><td>Large</td><td>Beast</td><td>13</td><td>12</td><td>1/4</td></tr>
-                        <tr><td>Crocodile</td><td>Large</td><td>Beast</td><td>19</td><td>12</td><td>1/2</td></tr>
-                        <tr><td>Draft Horse</td><td>Large</td><td>Beast</td><td>19</td><td>10</td><td>1/4</td></tr>
-                        <tr><td>Elk</td><td>Large</td><td>Beast</td><td>13</td><td>10</td><td>1/4</td></tr>
-                        <tr><td>Giant Goat</td><td>Large</td><td>Beast</td><td>19</td><td>11</td><td>1/2</td></tr>
-                        <tr><td>Giant Lizard</td><td>Large</td><td>Beast</td><td>19</td><td>12</td><td>1/4</td></tr>
-                        <tr><td>Giant Owl</td><td>Large</td><td>Beast</td><td>19</td><td>12</td><td>1/4</td></tr>
-                        <tr><td>Giant Sea Horse</td><td>Large</td><td>Beast</td><td>16</td><td>13</td><td>1/2</td></tr>
-                        <tr><td>Hippogriff</td><td>Large</td><td>Monstrosity</td><td>19</td><td>11</td><td>1</td></tr>
-                        <tr><td>Riding Horse</td><td>Large</td><td>Beast</td><td>13</td><td>10</td><td>1/4</td></tr>
-                        <tr><td>Warhorse</td><td>Large</td><td>Beast</td><td>19</td><td>11</td><td>1/2</td></tr>
+                        <tr>
+                            <td>Axe Beak</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>11</td>
+                            <td>19</td>
+                            <td>14</td>
+                            <td>50</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Camel</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>9</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>50</td>
+                            <td>1/8</td>
+                        </tr>
+                        <tr>
+                            <td>Constrictor Snake</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>15</td>
+                            <td>30</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Crocodile</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>12</td>
+                            <td>19</td>
+                            <td>15</td>
+                            <td>20</td>
+                            <td>1/2</td>
+                        </tr>
+                        <tr>
+                            <td>Draft Horse</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>10</td>
+                            <td>19</td>
+                            <td>18</td>
+                            <td>40</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Elk</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>10</td>
+                            <td>13</td>
+                            <td>16</td>
+                            <td>50</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Giant Goat</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>11</td>
+                            <td>19</td>
+                            <td>17</td>
+                            <td>40</td>
+                            <td>1/2</td>
+                        </tr>
+                        <tr>
+                            <td>Giant Lizard</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>12</td>
+                            <td>19</td>
+                            <td>15</td>
+                            <td>30</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Giant Owl</td>
+                            <td>Beast</td>
+                            <td>Neutral</td>
+                            <td>12</td>
+                            <td>19</td>
+                            <td>13</td>
+                            <td>5</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Giant Sea Horse</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>13</td>
+                            <td>16</td>
+                            <td>12</td>
+                            <td>0</td>
+                            <td>1/2</td>
+                        </tr>
+                        <tr>
+                            <td>Hippogriff</td>
+                            <td>Monstrosity</td>
+                            <td>Unaligned</td>
+                            <td>11</td>
+                            <td>19</td>
+                            <td>17</td>
+                            <td>40</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Riding Horse</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>10</td>
+                            <td>13</td>
+                            <td>16</td>
+                            <td>60</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Warhorse</td>
+                            <td>Beast</td>
+                            <td>Unaligned</td>
+                            <td>11</td>
+                            <td>19</td>
+                            <td>18</td>
+                            <td>60</td>
+                            <td>1/2</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <p>All 13 results are Beasts (plus one Monstrosity, the Hippogriff), with CRs at or below 1. These are
-                large-bodied but fragile creatures — useful for wildlife encounters or travel sequences where you want
+                large-bodied but fragile creatures, useful for wildlife encounters or travel sequences where you want
                 imposing visuals without deadly stakes.</p>
 
             <h3>Filtering by multiple categories</h3>
@@ -1245,20 +1668,76 @@ monster_options <span class="op">=</span> <span class="fn">@subset</span>(df_mon
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Size</th>
                             <th>Type</th>
-                            <th>HP</th>
+                            <th>Alignment</th>
                             <th>AC</th>
+                            <th>HP</th>
+                            <th>Str</th>
+                            <th>Speed</th>
                             <th>CR</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Aboleth</td><td>Large</td><td>Aberration</td><td>135</td><td>17</td><td>10</td></tr>
-                        <tr><td>Black Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>33</td><td>17</td><td>2</td></tr>
-                        <tr><td>Blue Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>52</td><td>17</td><td>3</td></tr>
-                        <tr><td>Brass Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>16</td><td>16</td><td>1</td></tr>
-                        <tr><td>Bronze Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>32</td><td>17</td><td>2</td></tr>
-                        <tr><td>Chuul</td><td>Large</td><td>Aberration</td><td>93</td><td>16</td><td>4</td></tr>
+                        <tr>
+                            <td>Aboleth</td>
+                            <td>Aberration</td>
+                            <td>Lawful Evil</td>
+                            <td>17</td>
+                            <td>135</td>
+                            <td>21</td>
+                            <td>10</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>Black Dragon Wyrmling</td>
+                            <td>Dragon</td>
+                            <td>Chaotic Evil</td>
+                            <td>17</td>
+                            <td>33</td>
+                            <td>15</td>
+                            <td>30</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Blue Dragon Wyrmling</td>
+                            <td>Dragon</td>
+                            <td>Lawful Evil</td>
+                            <td>17</td>
+                            <td>52</td>
+                            <td>17</td>
+                            <td>30</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Brass Dragon Wyrmling</td>
+                            <td>Dragon</td>
+                            <td>Chaotic Good</td>
+                            <td>16</td>
+                            <td>16</td>
+                            <td>15</td>
+                            <td>30</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Bronze Dragon Wyrmling</td>
+                            <td>Dragon</td>
+                            <td>Lawful Good</td>
+                            <td>17</td>
+                            <td>32</td>
+                            <td>17</td>
+                            <td>30</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Chuul</td>
+                            <td>Aberration</td>
+                            <td>Chaotic Evil</td>
+                            <td>16</td>
+                            <td>93</td>
+                            <td>19</td>
+                            <td>30</td>
+                            <td>4</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1279,7 +1758,8 @@ monster_options[monster_dice_roll, :]</code></pre>
 
             <p>Most encounter-building depends on the campaign. If you're running <em>Curse of Strahd</em>, you want
                 Undead creatures specifically. The <code>@subset</code> macro works with regular expressions via
-                <code>occursin()</code>:</p>
+                <code>occursin()</code>:
+            </p>
 
             <pre><code><span class="cmt"># Case-insensitive regex match on monster_type</span>
 rege <span class="op">=</span> <span class="sym">r"Undead"i</span>
@@ -1293,32 +1773,196 @@ my_monster_selection <span class="op">=</span> <span class="fn">@subset</span>(d
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Size</th>
-                            <th>HP</th>
+                            <th>Type</th>
+                            <th>Alignment</th>
                             <th>AC</th>
-                            <th>CR</th>
+                            <th>HP</th>
+                            <th>Str</th>
                             <th>Speed</th>
+                            <th>CR</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Ghast</td><td>Medium</td><td>36</td><td>13</td><td>2</td><td>30</td></tr>
-                        <tr><td>Ghost</td><td>Medium</td><td>45</td><td>11</td><td>4</td><td>0</td></tr>
-                        <tr><td>Ghoul</td><td>Medium</td><td>22</td><td>12</td><td>1</td><td>30</td></tr>
-                        <tr><td>Lich</td><td>Medium</td><td>135</td><td>17</td><td>21</td><td>30</td></tr>
-                        <tr><td>Minotaur Skeleton</td><td>Large</td><td>67</td><td>12</td><td>2</td><td>40</td></tr>
-                        <tr><td>Mummy</td><td>Medium</td><td>58</td><td>11</td><td>3</td><td>20</td></tr>
-                        <tr><td>Mummy Lord</td><td>Medium</td><td>97</td><td>17</td><td>15</td><td>20</td></tr>
-                        <tr><td>Ogre Zombie</td><td>Large</td><td>85</td><td>8</td><td>2</td><td>30</td></tr>
-                        <tr><td>Shadow</td><td>Medium</td><td>16</td><td>12</td><td>1/2</td><td>40</td></tr>
-                        <tr><td>Skeleton</td><td>Medium</td><td>13</td><td>13</td><td>1/4</td><td>30</td></tr>
-                        <tr><td>Specter</td><td>Medium</td><td>22</td><td>12</td><td>1</td><td>0</td></tr>
-                        <tr><td>Vampire</td><td>Medium</td><td>144</td><td>16</td><td>13</td><td>30</td></tr>
-                        <tr><td>Vampire Spawn</td><td>Medium</td><td>82</td><td>15</td><td>5</td><td>30</td></tr>
-                        <tr><td>Warhorse Skeleton</td><td>Large</td><td>22</td><td>13</td><td>1/2</td><td>60</td></tr>
-                        <tr><td>Wight</td><td>Medium</td><td>45</td><td>14</td><td>3</td><td>30</td></tr>
-                        <tr><td>Will-O'-Wisp</td><td>Tiny</td><td>22</td><td>19</td><td>2</td><td>0</td></tr>
-                        <tr><td>Wraith</td><td>Medium</td><td>67</td><td>13</td><td>5</td><td>0</td></tr>
-                        <tr><td>Zombie</td><td>Medium</td><td>22</td><td>8</td><td>1/4</td><td>20</td></tr>
+                        <tr>
+                            <td>Ghast</td>
+                            <td>Undead</td>
+                            <td>Chaotic Evil</td>
+                            <td>13</td>
+                            <td>36</td>
+                            <td>16</td>
+                            <td>30</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Ghost</td>
+                            <td>Undead</td>
+                            <td>Any alignment</td>
+                            <td>11</td>
+                            <td>45</td>
+                            <td>7</td>
+                            <td>0</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>Ghoul</td>
+                            <td>Undead</td>
+                            <td>Chaotic Evil</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>13</td>
+                            <td>30</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Lich</td>
+                            <td>Undead</td>
+                            <td>Any Evil</td>
+                            <td>17</td>
+                            <td>135</td>
+                            <td>11</td>
+                            <td>30</td>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <td>Minotaur Skeleton</td>
+                            <td>Undead</td>
+                            <td>Lawful Evil</td>
+                            <td>12</td>
+                            <td>67</td>
+                            <td>18</td>
+                            <td>40</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Mummy</td>
+                            <td>Undead</td>
+                            <td>Lawful Evil</td>
+                            <td>11</td>
+                            <td>58</td>
+                            <td>16</td>
+                            <td>20</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Mummy Lord</td>
+                            <td>Undead</td>
+                            <td>Lawful Evil</td>
+                            <td>17</td>
+                            <td>97</td>
+                            <td>18</td>
+                            <td>20</td>
+                            <td>15</td>
+                        </tr>
+                        <tr>
+                            <td>Ogre Zombie</td>
+                            <td>Undead</td>
+                            <td>Neutral Evil</td>
+                            <td>8</td>
+                            <td>85</td>
+                            <td>19</td>
+                            <td>30</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Shadow</td>
+                            <td>Undead</td>
+                            <td>Chaotic Evil</td>
+                            <td>12</td>
+                            <td>16</td>
+                            <td>6</td>
+                            <td>40</td>
+                            <td>1/2</td>
+                        </tr>
+                        <tr>
+                            <td>Skeleton</td>
+                            <td>Undead</td>
+                            <td>Lawful Evil</td>
+                            <td>13</td>
+                            <td>13</td>
+                            <td>10</td>
+                            <td>30</td>
+                            <td>1/4</td>
+                        </tr>
+                        <tr>
+                            <td>Specter</td>
+                            <td>Undead</td>
+                            <td>Chaotic Evil</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Vampire</td>
+                            <td>Undead</td>
+                            <td>Lawful Evil</td>
+                            <td>16</td>
+                            <td>144</td>
+                            <td>18</td>
+                            <td>30</td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td>Vampire Spawn</td>
+                            <td>Undead</td>
+                            <td>Neutral Evil</td>
+                            <td>15</td>
+                            <td>82</td>
+                            <td>16</td>
+                            <td>30</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Warhorse Skeleton</td>
+                            <td>Undead</td>
+                            <td>Lawful Evil</td>
+                            <td>13</td>
+                            <td>22</td>
+                            <td>18</td>
+                            <td>60</td>
+                            <td>1/2</td>
+                        </tr>
+                        <tr>
+                            <td>Wight</td>
+                            <td>Undead</td>
+                            <td>Neutral Evil</td>
+                            <td>14</td>
+                            <td>45</td>
+                            <td>15</td>
+                            <td>30</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Will-O'-Wisp</td>
+                            <td>Undead</td>
+                            <td>Chaotic Evil</td>
+                            <td>19</td>
+                            <td>22</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Wraith</td>
+                            <td>Undead</td>
+                            <td>Neutral Evil</td>
+                            <td>13</td>
+                            <td>67</td>
+                            <td>6</td>
+                            <td>0</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Zombie</td>
+                            <td>Undead</td>
+                            <td>Neutral Evil</td>
+                            <td>8</td>
+                            <td>22</td>
+                            <td>13</td>
+                            <td>20</td>
+                            <td>1/4</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1329,31 +1973,106 @@ my_monster_selection <span class="op">=</span> <span class="fn">@subset</span>(d
             <hr>
 
             <!-- SECTION 5 -->
-            <h2>Applied Analysis: Balancing a Fight</h2>
+            <h2>Balancing a Fight</h2>
 
-            <p class="drop-cap">Balancing combat requires more than random sampling. One concrete question a DM can ask:
-                <strong>what is the probability that my players will hit a given monster?</strong></p>
+            <p class="drop-cap">When putting together a fight, we want to strike a balance between challenge and
+                ensuring that our players have fun. To do this, we might want to take a look at the chance our players
+                will hit a given monster on each roll. Keeping on the theme of the undead, let's calculate the
+                distribution of success chances against these monsters to see if our players are ready to take on the
+                living dead!</p>
 
-            <h3>A brief probability primer</h3>
+            <div class="elvish-box">
+                <span class="elvish-corner top-left"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner top-right"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner bottom-left"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-corner bottom-right"><svg viewBox="0 0 44 44" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 42 C2 22, 8 8, 42 2" stroke="#941120" stroke-width="1.4" fill="none" />
+                        <path d="M2 42 C6 30, 12 18, 28 8" stroke="#941120" stroke-width="0.8" fill="none"
+                            opacity="0.5" />
+                        <circle cx="42" cy="2" r="2" fill="#941120" opacity="0.6" />
+                        <path d="M30 6 C32 4, 36 3, 42 2" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.4" />
+                        <path d="M6 30 C8 26, 12 20, 20 14" stroke="#941120" stroke-width="0.6" fill="none"
+                            opacity="0.3" />
+                        <circle cx="2" cy="42" r="1.5" fill="#941120" opacity="0.4" />
+                        <path d="M38 4 Q36 8, 34 6 Q36 3, 38 4Z" fill="#941120" opacity="0.3" />
+                        <path d="M8 34 Q10 30, 12 32 Q10 35, 8 34Z" fill="#941120" opacity="0.25" />
+                    </svg></span>
+                <span class="elvish-vine top">❧ ✾ ❧</span>
+                <div class="elvish-title">A Brief Probability Primer</div>
+                <div class="elvish-content">
+                    <p>A d20 roll produces a <strong>uniform distribution</strong> over the integers $\{1, 2, \ldots,
+                        20\}$;
+                        each outcome has a $\frac{1}{20} = 5\%$ chance. To hit a monster, the player needs:</p>
 
-            <p>A d20 roll produces a <strong>uniform distribution</strong> over the integers $\{1, 2, \ldots, 20\}$;
-                each outcome has a $\frac{1}{20} = 5\%$ chance. To hit a monster, the player needs:</p>
+                    $$\text{d20 roll} + \text{modifier} \geq \text{AC}$$
 
-            $$\text{d20 roll} + \text{modifier} \geq \text{AC}$$
+                    <p>So the probability of hitting is:</p>
 
-            <p>So the probability of hitting is:</p>
+                    $$P(\text{hit}) = \frac{\text{number of rolls that meet or exceed (AC - modifier)}}{20}$$
 
-            $$P(\text{hit}) = \frac{\text{number of rolls that meet or exceed (AC - modifier)}}{20}$$
+                    <p>With two special cases from the D&amp;D rules: a natural 20 always hits (minimum 5% chance
+                        regardless of
+                        AC), and a natural 1 always misses (maximum 95% chance regardless of modifier).</p>
 
-            <p>With two special cases from the D&amp;D rules: a natural 20 always hits (minimum 5% chance regardless of
-                AC), and a natural 1 always misses (maximum 95% chance regardless of modifier).</p>
-
-            <p>This is structurally identical to any threshold-detection problem in statistics or engineering.</p>
+                    <p>This is structurally identical to any threshold-detection problem in statistics or engineering.
+                    </p>
+                </div>
+                <span class="elvish-vine bottom">❧ ✾ ❧</span>
+            </div>
 
             <h3>Calculating hit probabilities across Undead monsters</h3>
 
-            <p>We compute hit probability for four scenarios: no modifier, a +5 modifier, and two players with +2 and +7
-                respectively.</p>
+            <p>We calculate by doing the following:</p>
+
+            <ul>
+                <li>For each monster, calculate the probability of hitting. For this example, we are looking at a
+                    situation where there are no modifiers, where the player has +5, and where there are two players
+                    with +2 and +7.</li>
+                <li>Given the AC of the monster, what is the distribution of a player's chances in hitting this monster
+                    (e.g., rolling above the given AC)?</li>
+                <li>Plot this on a bar chart to see who our players would have a chance to defeat!</li>
+            </ul>
 
             <pre><code><span class="cmt"># Hit probability for a d20 roll against a given AC</span>
 <span class="kw">function</span> <span class="fn">calculate_d20_probability</span>(threshold::<span class="typ">Int</span>, modifier::<span class="typ">Int</span>)
@@ -1561,6 +2280,31 @@ p3 <span class="op">=</span> <span class="fn">bar</span>(names, [chance_p1 chanc
         <p>Built with Julia &amp; DataFrames.jl · D&amp;D 5e Monster Manual data via <a
                 href="https://www.kaggle.com/datasets/travistyler/dnd-5e-monster-manual-stats">Kaggle</a></p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre').forEach(block => {
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.textContent = 'Copy';
+                btn.setAttribute('aria-label', 'Copy code to clipboard');
+                btn.addEventListener('click', () => {
+                    const code = block.querySelector('code');
+                    const text = (code || block).textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        btn.textContent = 'Copied ✓';
+                        btn.classList.add('copied');
+                        setTimeout(() => {
+                            btn.textContent = 'Copy';
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    });
+                });
+                block.style.position = 'relative';
+                block.appendChild(btn);
+            });
+        });
+    </script>
 
 </body>
 

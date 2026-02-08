@@ -1750,6 +1750,34 @@ monster_options <span class="op">=</span> <span class="fn">@subset</span>(df_mon
             <pre><code><span class="cmt"># Simulate a dice roll to pick a random monster from the pool</span>
 monster_dice_roll <span class="op">=</span> <span class="fn">rand</span>(<span class="num">1</span>:<span class="fn">size</span>(monster_options, <span class="num">1</span>))
 monster_options[monster_dice_roll, :]</code></pre>
+<div class="output-table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Alignment</th>
+                <th>AC</th>
+                <th>HP</th>
+                <th>Str</th>
+                <th>Speed</th>
+                <th>CR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Chuul</td>
+                <td>Aberration</td>
+                <td>Chaotic Evil</td>
+                <td>16</td>
+                <td>93</td>
+                <td>19</td>
+                <td>30</td>
+                <td>4</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
             <p>Random selection is foundational in data science more broadly: train/test splits, bootstrap sampling,
                 and randomized assignment all use this same operation.</p>

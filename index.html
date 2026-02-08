@@ -79,6 +79,20 @@
                 radial-gradient(ellipse at 10% 90%, rgba(185, 165, 120, 0.15) 0%, transparent 40%),
                 radial-gradient(ellipse at 90% 70%, rgba(200, 180, 140, 0.12) 0%, transparent 50%);
             background-attachment: fixed;
+            background-blend-mode: multiply;
+        }
+
+        /* Second grain pass — finer fiber texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.028;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 512px 512px;
+            z-index: 9998;
         }
 
         body::after {
@@ -86,8 +100,8 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.055;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             background-repeat: repeat;
             background-size: 256px 256px;
             z-index: 9999;
@@ -192,13 +206,38 @@
             margin: 0 auto;
             padding: 0 2.5rem;
             position: relative;
+            background-image:
+                linear-gradient(to right, rgba(120, 95, 55, 0.04) 0%, transparent 3%, transparent 97%, rgba(120, 95, 55, 0.04) 100%);
         }
 
         article {
             padding: 3rem 0 5rem;
             box-shadow:
                 inset 4px 0 12px -4px rgba(120, 100, 70, 0.08),
-                inset -4px 0 12px -4px rgba(120, 100, 70, 0.08);
+                inset -4px 0 12px -4px rgba(120, 100, 70, 0.08),
+                inset 0 6px 18px -6px rgba(100, 80, 50, 0.07),
+                inset 0 -8px 22px -8px rgba(90, 70, 40, 0.09);
+            position: relative;
+        }
+
+        /* Foxing spots — faint age stains */
+        article::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                radial-gradient(ellipse 60px 50px at 8% 12%, rgba(160, 130, 80, 0.045) 0%, transparent 70%),
+                radial-gradient(ellipse 45px 55px at 88% 35%, rgba(150, 120, 70, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 70px 40px at 75% 78%, rgba(145, 115, 65, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 35px 45px at 15% 65%, rgba(155, 125, 75, 0.035) 0%, transparent 70%),
+                radial-gradient(ellipse 50px 35px at 55% 92%, rgba(140, 110, 60, 0.03) 0%, transparent 70%);
+        }
+
+        article > * {
+            position: relative;
+            z-index: 1;
         }
 
         /* --- TYPOGRAPHY --- */
@@ -528,6 +567,67 @@
             color: var(--accent-light);
         }
 
+        /* --- OUTPUT TABLES (DataFrame displays) --- */
+        .output-table-wrapper {
+            position: relative;
+            margin: 1rem 0 1.4rem;
+        }
+
+        .output-table-wrapper::before {
+            content: 'output';
+            position: absolute;
+            top: -0.6rem;
+            right: 0.8rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            background: var(--bg);
+            padding: 0 0.4rem;
+            z-index: 1;
+        }
+
+        .output-table-wrapper table {
+            border: 1px solid var(--border);
+            box-shadow: inset 0 1px 4px rgba(120, 100, 70, 0.1);
+            background: var(--bg-deep);
+            font-size: 0.82rem;
+        }
+
+        .output-table-wrapper td {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.78rem;
+        }
+
+        /* --- SETUP BOX --- */
+        .setup-box {
+            background: linear-gradient(180deg, rgba(24, 44, 75, 0.06) 0%, rgba(24, 44, 75, 0.03) 100%);
+            border: 1.5px solid var(--border-strong);
+            border-left: 4px solid var(--accent);
+            border-radius: 3px;
+            padding: 1.1rem 1.4rem;
+            margin: 1.2rem 0 1.8rem;
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        .setup-box strong {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+        }
+
+        .setup-box ol {
+            margin: 0.4rem 0 0 1.2rem;
+        }
+
+        .setup-box code {
+            font-size: 0.78em;
+        }
+
         /* --- TABLES --- */
         table {
             width: 100%;
@@ -682,40 +782,21 @@
 
             <h3>What is Dungeons &amp; Dragons?</h3>
 
-            <p class="drop-cap">Dungeons &amp; Dragons (D&amp;D) is a tabletop role-playing game where a group of
-                players create fictional characters and collaboratively navigate a story guided by a <strong>Dungeon
-                    Master (DM)</strong>. The DM designs the world, controls non-player characters and monsters, and
-                adjudicates the rules. Combat and skill checks are resolved by rolling polyhedral dice, most commonly a
-                20-sided die (d20).</p>
-
-            <p>Every monster in the game has a stat block: a structured record of its attributes. Three of the most
-                important are:</p>
-            <ul>
-                <li><strong>Hit Points (HP):</strong> How much damage a monster can absorb before it is defeated.</li>
-                <li><strong>Armor Class (AC):</strong> The threshold a player must meet or exceed on a d20 roll (plus
-                    modifiers) to land a hit.</li>
-                <li><strong>Challenge Rating (CR):</strong> A rough index of how difficult the monster is, meant to help
-                    DMs gauge appropriate difficulty for their party.</li>
-            </ul>
+            <p class="drop-cap">Dungeons &amp; Dragons (D&amp;D) is a tabletop role-playing game where players navigate a
+                story guided by a <strong>Dungeon Master (DM)</strong>, who designs the world, controls monsters, and
+                adjudicates rules. Combat is resolved by rolling a 20-sided die (d20). Every monster has a stat block with
+                key attributes: <strong>Hit Points (HP)</strong>, the damage it can absorb; <strong>Armor Class
+                    (AC)</strong>, the d20 threshold to land a hit; and <strong>Challenge Rating (CR)</strong>, a rough
+                difficulty index for the party.</p>
 
             <h3>Why Data-Informed Dungeon Mastering?</h3>
 
-            <p class="drop-cap">A Dungeon Master preparing a campaign faces a design problem: how do you create
-                encounters that are challenging enough to feel dangerous but fair enough that players stay engaged? The
-                Monster Manual contains hundreds of creatures, each with dozens of attributes. Without organized access
-                to that data, a DM relies on intuition, memory, or flipping through pages, which works most of the time.
-                But sometimes it takes too long for the time we have to prepare.</p>
-
-            <p>Treating monster selection as a <strong>data management problem</strong> changes this. When you can
-                filter, sort, group, and visualize monster attributes programmatically, you gain access to options you
-                might never have found by browsing. You can ask precise questions: <em>"Which Large undead creatures
-                    have an AC below 14?"</em> or <em>"How does HP scale with size across monster types?"</em>. You can
-                document your encounter-building rationale, reproduce it, and refine it between sessions.</p>
-
-            <p>This is the same principle behind any evidence-based workflow. In experimental design, clinical research,
-                or engineering: <strong>good documentation and systematic exploration of your option space lead to
-                    better decisions</strong>. In D&amp;D terms, it means more balanced fights, more variety, and
-                ultimately a better experience at the table.</p>
+            <p class="drop-cap">A DM preparing encounters faces a design problem: the Monster Manual contains hundreds of
+                creatures, and browsing by intuition misses options. Treating monster selection as a <strong>data management
+                    problem</strong> changes this — you can filter, sort, group, and visualize attributes programmatically,
+                asking precise questions like <em>"Which Large undead have AC below 14?"</em>. This is the same principle
+                behind any evidence-based workflow: systematic exploration of your option space leads to better
+                decisions.</p>
 
             <h3>About This Notebook</h3>
 
@@ -723,30 +804,31 @@
                 Julia. The workflow (load, inspect, explore, visualize, filter, analyze) is universal and transfers
                 directly to any tabular dataset in any domain.</p>
 
+            <div class="setup-box">
+                <strong>⚙ Running This Notebook</strong>
+                <p>To run the source notebook interactively, you need:</p>
+                <ol>
+                    <li>Install <a href="https://julialang.org/downloads/">Julia</a> (v1.9 or later recommended).</li>
+                    <li>Install <a href="https://code.visualstudio.com/">VS Code</a> and the
+                        <a href="https://marketplace.visualstudio.com/items?itemName=julialang.language-julia">Julia
+                            extension</a>.</li>
+                    <li>Open the <code>.ipynb</code> notebook file in VS Code — the Julia extension provides full
+                        notebook support with syntax highlighting, inline plots, and a built-in REPL.</li>
+                    <li>When prompted, install the required packages:
+                        <code>CSV</code>, <code>DataFrames</code>, <code>DataFramesMeta</code>,
+                        <code>Statistics</code>, <code>StatsPlots</code>.</li>
+                </ol>
+            </div>
+
             <h3>Why Julia?</h3>
 
-            <p class="drop-cap"><a href="https://julialang.org/">Julia</a> is a high-level,
-                open-source programming language designed for technical and scientific computing.
-                Released in 2012, it was built to solve a practical tension: languages that are
-                easy to write (like Python or R) tend to be slow at execution, while fast languages
-                (like C or Fortran) are harder to prototype in. Julia aims for both, compiling
-                code just-in-time so that scripts written in readable, high-level syntax run at
-                speeds comparable to compiled languages.</p>
-
-            <p>For interdisciplinary work, this matters. A biologist analyzing genomic sequences,
-                a librarian processing metadata at scale, and a physicist running simulations all
-                benefit from a language where the learning curve is gentle but the performance
-                ceiling is high. Julia's syntax reads close to mathematical notation, its package
-                ecosystem covers statistics, data manipulation, visualization, and machine learning,
-                and it interoperates with Python and R when needed via
-                <a href="https://github.com/JuliaPy/PyCall.jl">PyCall.jl</a> and
-                <a href="https://github.com/JuliaInterop/RCall.jl">RCall.jl</a>.</p>
-
-            <p>If you are new to Julia, the <a href="https://docs.julialang.org/en/v1/">official
-                documentation</a> and the
-                <a href="https://juliaacademy.com/">Julia Academy</a> tutorials are good starting
-                points. The <a href="https://dataframes.juliadata.org/stable/">DataFrames.jl
-                documentation</a> covers the tabular data tools used throughout this notebook.</p>
+            <p class="drop-cap"><a href="https://julialang.org/">Julia</a> is an open-source language designed for
+                technical computing. It resolves a common tension: languages easy to write (Python, R) tend to be slow,
+                while fast languages (C, Fortran) are harder to prototype in. Julia compiles just-in-time, so readable
+                high-level code runs at speeds comparable to compiled languages. Its syntax reads close to mathematical
+                notation, and its ecosystem covers statistics, data manipulation, and visualization. If you are new to
+                Julia, the <a href="https://docs.julialang.org/en/v1/">official documentation</a> and
+                <a href="https://juliaacademy.com/">Julia Academy</a> are good starting points.</p>
 
             <figure>
                 <img src="Figures/julia_repl.png"
@@ -758,14 +840,15 @@
             <hr>
 
             <!-- SECTION 1 -->
-            <h2>Section 1: Setup and Data Loading</h2>
+            <h2>Setup and Data Loading</h2>
 
-            <pre><code><span class="kw">using</span> CSV
-<span class="kw">using</span> DataFrames
-<span class="kw">using</span> DataFramesMeta
-<span class="kw">using</span> Statistics
-<span class="kw">using</span> Random
-<span class="kw">using</span> StatsPlots
+            <pre><code><span class="cmt"># --- Package imports ---</span>
+<span class="kw">using</span> CSV              <span class="cmt"># Read/write CSV files</span>
+<span class="kw">using</span> DataFrames       <span class="cmt"># Tabular data structures</span>
+<span class="kw">using</span> DataFramesMeta   <span class="cmt"># Convenient macros: @subset, @groupby</span>
+<span class="kw">using</span> Statistics        <span class="cmt"># mean, median, std, etc.</span>
+<span class="kw">using</span> Random           <span class="cmt"># Reproducible random sampling</span>
+<span class="kw">using</span> StatsPlots       <span class="cmt"># Plotting: bar, boxplot, violin, pie</span>
 
 <span class="cmt"># Global plot defaults for readability</span>
 <span class="fn">default</span>(
@@ -779,14 +862,86 @@
     dpi <span class="op">=</span> <span class="num">150</span>
 )</code></pre>
 
-            <p class="drop-cap">A <strong>DataFrame</strong> is essentially a spreadsheet in code: rows are individual
-                records (monsters), and columns are attributes (HP, size, type). This structure makes it easy to filter,
-                group, summarize, and visualize patterns. DataFrames work the same way for any tabular data: survey
-                responses, experimental measurements, game telemetry, or biological sequences.</p>
+            <p class="drop-cap">A <strong>DataFrame</strong> is a spreadsheet in code: rows are records (monsters), columns
+                are attributes (HP, size, type). This structure lets you filter, group, summarize, and visualize
+                patterns — the same way for any tabular data.</p>
 
             <p>To load a CSV file into a DataFrame in Julia:</p>
 
-            <pre><code>df_monsters <span class="op">=</span> CSV.<span class="fn">read</span>(<span class="str">"cleaned_monsters_basic.csv"</span>, DataFrame);</code></pre>
+            <pre><code><span class="cmt"># Load the dataset; semicolon suppresses output</span>
+df_monsters <span class="op">=</span> CSV.<span class="fn">read</span>(<span class="str">"cleaned_monsters_basic.csv"</span>, DataFrame);
+
+<span class="cmt"># Preview the first 5 rows</span>
+<span class="fn">first</span>(df_monsters, <span class="num">5</span>)</code></pre>
+
+            <div class="output-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                            <th>HP</th>
+                            <th>AC</th>
+                            <th>CR</th>
+                            <th>Speed</th>
+                            <th>Str</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aboleth</td>
+                            <td>Large</td>
+                            <td>Aberration</td>
+                            <td>135</td>
+                            <td>17</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <td>Acolyte</td>
+                            <td>Medium</td>
+                            <td>Humanoid (any race)</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>1/4</td>
+                            <td>30</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>Adult Black Dragon</td>
+                            <td>Huge</td>
+                            <td>Dragon</td>
+                            <td>195</td>
+                            <td>19</td>
+                            <td>14</td>
+                            <td>40</td>
+                            <td>23</td>
+                        </tr>
+                        <tr>
+                            <td>Adult Blue Dragon</td>
+                            <td>Huge</td>
+                            <td>Dragon</td>
+                            <td>225</td>
+                            <td>19</td>
+                            <td>16</td>
+                            <td>40</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>Adult Brass Dragon</td>
+                            <td>Huge</td>
+                            <td>Dragon</td>
+                            <td>172</td>
+                            <td>18</td>
+                            <td>13</td>
+                            <td>40</td>
+                            <td>23</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <p>This data was downloaded <a
                     href="https://www.kaggle.com/datasets/travistyler/dnd-5e-monster-manual-stats">from Kaggle</a>.</p>
@@ -809,11 +964,10 @@
             <hr>
 
             <!-- SECTION 2 -->
-            <h2>Section 2: Exploring Categorical Features</h2>
+            <h2>Exploring Categorical Features</h2>
 
-            <p class="drop-cap">Before computing any statistics, you need to know what values actually exist in your
-                data. This prevents surprises like typos ("large" vs "Large"), unexpected categories, or missing
-                entries; a step analogous to checking your reagent labels before running an experiment.</p>
+            <p class="drop-cap">Before computing statistics, check what values exist in your data. This prevents surprises
+                like typos, unexpected categories, or missing entries.</p>
 
             <h3>How many different sizes exist?</h3>
 
@@ -830,7 +984,7 @@
             <hr>
 
             <!-- SECTION 3 -->
-            <h2>Section 3: Visualizing Distributions</h2>
+            <h2>Visualizing Distributions</h2>
 
             <h3>Bar plot: Monster count by size</h3>
 
@@ -843,13 +997,17 @@
         size<span class="op">=</span>(<span class="num">800</span>,<span class="num">600</span>),
         rotation<span class="op">=</span><span class="num">45</span>,
         var_order<span class="op">=</span><span class="num">nothing</span>)
+
+    <span class="cmt"># Count occurrences of each category</span>
     freq_dict <span class="op">=</span> <span class="typ">Dict</span>{<span class="typ">String</span>, <span class="typ">Int</span>}()
     <span class="kw">for</span> s <span class="kw">in</span> string_array
         freq_dict[s] <span class="op">=</span> <span class="fn">get</span>(freq_dict, s, <span class="num">0</span>) <span class="op">+</span> <span class="num">1</span>
     <span class="kw">end</span>
 
+    <span class="cmt"># Sort by frequency (descending) by default</span>
     sorted_pairs <span class="op">=</span> <span class="fn">sort</span>(<span class="fn">collect</span>(freq_dict), by<span class="op">=</span>x<span class="op">-></span>x[<span class="num">2</span>], rev<span class="op">=</span><span class="num">true</span>)
 
+    <span class="cmt"># Optional: reorder by a custom index (e.g. Tiny→Gargantuan)</span>
     <span class="kw">if</span> var_order <span class="op">!==</span> <span class="num">nothing</span>
         <span class="kw">if</span> <span class="fn">length</span>(var_order) <span class="op">!=</span> <span class="fn">length</span>(sorted_pairs)
             <span class="fn">error</span>(<span class="str">"var_order length must match unique elements"</span>)
@@ -899,6 +1057,8 @@
         title<span class="op">=</span><span class="str">"PieChart Distribution"</span>,
         size<span class="op">=</span>(<span class="num">600</span>,<span class="num">400</span>),
         legendfontsize<span class="op">=</span><span class="num">10</span>)
+
+    <span class="cmt"># Count occurrences</span>
     freq_dict <span class="op">=</span> <span class="typ">Dict</span>{<span class="typ">String</span>, <span class="typ">Int</span>}()
     <span class="kw">for</span> s <span class="kw">in</span> string_array
         freq_dict[s] <span class="op">=</span> <span class="fn">get</span>(freq_dict, s, <span class="num">0</span>) <span class="op">+</span> <span class="num">1</span>
@@ -906,6 +1066,8 @@
 
     labels <span class="op">=</span> <span class="fn">collect</span>(<span class="fn">keys</span>(freq_dict))
     counts <span class="op">=</span> <span class="fn">collect</span>(<span class="fn">values</span>(freq_dict))
+
+    <span class="cmt"># Compute percentages and build "Label (X%)" strings</span>
     total <span class="op">=</span> <span class="fn">sum</span>(counts)
     percentages <span class="op">=</span> <span class="fn">round</span>.((counts <span class="op">./</span> total) <span class="op">.*</span> <span class="num">100</span>, digits<span class="op">=</span><span class="num">1</span>)
     labels_pct <span class="op">=</span> [<span class="fn">string</span>(l, <span class="str">" ("</span>, p, <span class="str">"%)"</span>)
@@ -929,14 +1091,9 @@
 
             <h3>Boxplots: How do numerical features vary across sizes?</h3>
 
-            <p>Both boxplots and violin plots show how numerical values distribute across categories.
-                <strong>Boxplots</strong> display the median (center line), the interquartile range (the box covers the
-                middle 50% of your data), and outliers (dots beyond the whiskers). <strong>Violin plots</strong> add a
-                density curve showing the full shape of the distribution, which can reveal patterns that boxplots hide,
-                such as bimodal distributions or heavy skew.</p>
-
-            <p>Use boxplots for clean, compact comparisons. Use violin plots when you want to see the full
-                distributional shape.</p>
+            <p><strong>Boxplots</strong> show the median, interquartile range (middle 50%), and outliers for each
+                category. <strong>Violin plots</strong> add a density curve revealing the full distributional shape.
+                Use boxplots for compact comparisons; violins when shape matters (bimodality, heavy skew).</p>
 
             <p>The <code>DataFramesMeta</code> package provides the <code>@groupby</code> macro, which partitions a
                 DataFrame into sub-tables by a categorical variable, similar to SQL's <code>GROUP BY</code> or pandas'
@@ -946,9 +1103,12 @@
         title<span class="op">=</span><span class="str">"Distributions by Category"</span>,
         size<span class="op">=</span>(<span class="num">1600</span>, <span class="num">600</span>),
         plot_type<span class="op">=</span><span class="sym">:boxplot</span>)
+
+    <span class="cmt"># Split DataFrame into sub-tables by category</span>
     grouped_df <span class="op">=</span> <span class="fn">@groupby</span>(df, categorical_col)
     categories <span class="op">=</span> [key[categorical_col] <span class="kw">for</span> key <span class="kw">in</span> <span class="fn">keys</span>(grouped_df)]
 
+    <span class="cmt"># Determine subplot grid layout (max 3 columns)</span>
     n_plots <span class="op">=</span> <span class="fn">length</span>(numeric_cols)
     n_cols <span class="op">=</span> <span class="fn">min</span>(<span class="num">3</span>, n_plots)
     n_rows <span class="op">=</span> <span class="fn">ceil</span>(<span class="typ">Int</span>, n_plots <span class="op">/</span> n_cols)
@@ -1008,12 +1168,10 @@
             <hr>
 
             <!-- SECTION 4 -->
-            <h2>Section 4: Filtering and Subsetting</h2>
+            <h2>Filtering and Subsetting</h2>
 
             <p class="drop-cap">Real analysis rarely uses the entire dataset at once. You filter to answer specific
-                questions: <em>"Which genes are upregulated more than 2-fold?"</em>, <em>"Which patients are over 65
-                    with blood pressure below a threshold?"</em>, or in our case, <em>"Which Large monsters have
-                    surprisingly low HP?"</em></p>
+                questions — in our case, <em>"Which Large monsters have surprisingly low HP?"</em></p>
 
             <h3>Are there Large monsters with low HP?</h3>
 
@@ -1022,22 +1180,56 @@
 
             <pre><code><span class="kw">using</span> DataFramesMeta
 
+<span class="cmt"># Filter: Large monsters with fewer than 20 HP</span>
+<span class="cmt"># The dot (.) broadcasts the comparison across all rows</span>
 low_hp_large <span class="op">=</span> <span class="fn">@subset</span>(df_monsters,
     <span class="sym">:hp</span> <span class="op">.<</span> <span class="num">20</span>,
     <span class="sym">:size</span> <span class="op">.==</span> <span class="str">"Large"</span>)</code></pre>
 
-            <p>This returns 13 monsters, all Beasts (Axe Beak, Camel, Elk, various horses and Giant animals) plus the
-                Hippogriff (a Monstrosity). Their HP ranges from 13 to 19, and their CRs are all 1 or below. These are
-                large-bodied but fragile creatures, useful for encounters where you want imposing visuals without deadly
-                stakes, such as wildlife encounters in travel sequences.</p>
+            <div class="output-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                            <th>HP</th>
+                            <th>AC</th>
+                            <th>CR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Axe Beak</td><td>Large</td><td>Beast</td><td>19</td><td>11</td><td>1/4</td></tr>
+                        <tr><td>Camel</td><td>Large</td><td>Beast</td><td>15</td><td>9</td><td>1/8</td></tr>
+                        <tr><td>Constrictor Snake</td><td>Large</td><td>Beast</td><td>13</td><td>12</td><td>1/4</td></tr>
+                        <tr><td>Crocodile</td><td>Large</td><td>Beast</td><td>19</td><td>12</td><td>1/2</td></tr>
+                        <tr><td>Draft Horse</td><td>Large</td><td>Beast</td><td>19</td><td>10</td><td>1/4</td></tr>
+                        <tr><td>Elk</td><td>Large</td><td>Beast</td><td>13</td><td>10</td><td>1/4</td></tr>
+                        <tr><td>Giant Goat</td><td>Large</td><td>Beast</td><td>19</td><td>11</td><td>1/2</td></tr>
+                        <tr><td>Giant Lizard</td><td>Large</td><td>Beast</td><td>19</td><td>12</td><td>1/4</td></tr>
+                        <tr><td>Giant Owl</td><td>Large</td><td>Beast</td><td>19</td><td>12</td><td>1/4</td></tr>
+                        <tr><td>Giant Sea Horse</td><td>Large</td><td>Beast</td><td>16</td><td>13</td><td>1/2</td></tr>
+                        <tr><td>Hippogriff</td><td>Large</td><td>Monstrosity</td><td>19</td><td>11</td><td>1</td></tr>
+                        <tr><td>Riding Horse</td><td>Large</td><td>Beast</td><td>13</td><td>10</td><td>1/4</td></tr>
+                        <tr><td>Warhorse</td><td>Large</td><td>Beast</td><td>19</td><td>11</td><td>1/2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>All 13 results are Beasts (plus one Monstrosity, the Hippogriff), with CRs at or below 1. These are
+                large-bodied but fragile creatures — useful for wildlife encounters or travel sequences where you want
+                imposing visuals without deadly stakes.</p>
 
             <h3>Filtering by multiple categories</h3>
 
             <p>For more complex selections, say you are a DM looking for Small-to-Large Aberrations and Dragons:</p>
 
-            <pre><code>monster_sizes <span class="op">=</span> [<span class="str">"Small"</span>, <span class="str">"Medium"</span>, <span class="str">"Large"</span>]
+            <pre><code><span class="cmt"># Define allowed values for each filter</span>
+monster_sizes <span class="op">=</span> [<span class="str">"Small"</span>, <span class="str">"Medium"</span>, <span class="str">"Large"</span>]
 monster_types <span class="op">=</span> [<span class="str">"Aberration"</span>, <span class="str">"Dragon"</span>]
 
+<span class="cmt"># .∈ broadcasts "is element of" row-wise</span>
+<span class="cmt"># Ref() prevents Julia from iterating over the array itself</span>
 monster_options <span class="op">=</span> <span class="fn">@subset</span>(df_monsters,
     <span class="sym">:size</span> <span class="op">.∈</span> <span class="fn">Ref</span>(monster_sizes),
     <span class="sym">:monster_type</span> <span class="op">.∈</span> <span class="fn">Ref</span>(monster_types));</code></pre>
@@ -1046,42 +1238,101 @@ monster_options <span class="op">=</span> <span class="fn">@subset</span>(df_mon
 
             <pre class="output"><code>26</code></pre>
 
-            <p>This gives 26 candidates to work with, a manageable pool to browse and select from.</p>
+            <p>This gives 26 candidates. Here are the first six:</p>
+
+            <div class="output-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                            <th>HP</th>
+                            <th>AC</th>
+                            <th>CR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Aboleth</td><td>Large</td><td>Aberration</td><td>135</td><td>17</td><td>10</td></tr>
+                        <tr><td>Black Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>33</td><td>17</td><td>2</td></tr>
+                        <tr><td>Blue Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>52</td><td>17</td><td>3</td></tr>
+                        <tr><td>Brass Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>16</td><td>16</td><td>1</td></tr>
+                        <tr><td>Bronze Dragon Wyrmling</td><td>Medium</td><td>Dragon</td><td>32</td><td>17</td><td>2</td></tr>
+                        <tr><td>Chuul</td><td>Large</td><td>Aberration</td><td>93</td><td>16</td><td>4</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3>Random selection</h3>
 
-            <p>When you have a filtered pool and want to pick one at random (for a random encounter table, or just to
-                break decision paralysis), Julia's <code>rand()</code> function simulates a dice roll:</p>
+            <p>When you have a filtered pool and want to pick one at random (for a random encounter table or to
+                break decision paralysis):</p>
 
-            <pre><code>monster_dice_roll <span class="op">=</span> <span class="fn">rand</span>(<span class="num">1</span>:<span class="fn">size</span>(monster_options, <span class="num">1</span>))
+            <pre><code><span class="cmt"># Simulate a dice roll to pick a random monster from the pool</span>
+monster_dice_roll <span class="op">=</span> <span class="fn">rand</span>(<span class="num">1</span>:<span class="fn">size</span>(monster_options, <span class="num">1</span>))
 monster_options[monster_dice_roll, :]</code></pre>
 
-            <p>Random selection is also foundational in data science more broadly: train/test splits in machine
-                learning, bootstrap sampling in statistics, and randomized assignment in experimental design all rely on
-                this same operation.</p>
+            <p>Random selection is foundational in data science more broadly: train/test splits, bootstrap sampling,
+                and randomized assignment all use this same operation.</p>
 
             <h3>Campaign-specific filtering with regex</h3>
 
-            <p>Most encounter-building decisions depend on the campaign or adventure. If you're running <em>Curse of
-                    Strahd</em>, you might want Undead creatures specifically. The <code>@subset</code> macro works with
-                regular expressions via <code>occursin()</code>:</p>
+            <p>Most encounter-building depends on the campaign. If you're running <em>Curse of Strahd</em>, you want
+                Undead creatures specifically. The <code>@subset</code> macro works with regular expressions via
+                <code>occursin()</code>:</p>
 
-            <pre><code>rege <span class="op">=</span> <span class="sym">r"Undead"i</span>
+            <pre><code><span class="cmt"># Case-insensitive regex match on monster_type</span>
+rege <span class="op">=</span> <span class="sym">r"Undead"i</span>
 my_monster_selection <span class="op">=</span> <span class="fn">@subset</span>(df_monsters,
     <span class="fn">occursin</span>.(rege, <span class="sym">:monster_type</span>))</code></pre>
 
-            <p>This returns 18 Undead monsters, ranging from the lowly Skeleton (CR 1/4) to the Lich (CR 21) and Vampire
-                (CR 13). Having this pool organized and queryable lets you design a progression of encounters across the
-                campaign.</p>
+            <p>This returns 18 Undead monsters, from the Skeleton (CR 1/4) to the Lich (CR 21):</p>
+
+            <div class="output-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>HP</th>
+                            <th>AC</th>
+                            <th>CR</th>
+                            <th>Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Ghast</td><td>Medium</td><td>36</td><td>13</td><td>2</td><td>30</td></tr>
+                        <tr><td>Ghost</td><td>Medium</td><td>45</td><td>11</td><td>4</td><td>0</td></tr>
+                        <tr><td>Ghoul</td><td>Medium</td><td>22</td><td>12</td><td>1</td><td>30</td></tr>
+                        <tr><td>Lich</td><td>Medium</td><td>135</td><td>17</td><td>21</td><td>30</td></tr>
+                        <tr><td>Minotaur Skeleton</td><td>Large</td><td>67</td><td>12</td><td>2</td><td>40</td></tr>
+                        <tr><td>Mummy</td><td>Medium</td><td>58</td><td>11</td><td>3</td><td>20</td></tr>
+                        <tr><td>Mummy Lord</td><td>Medium</td><td>97</td><td>17</td><td>15</td><td>20</td></tr>
+                        <tr><td>Ogre Zombie</td><td>Large</td><td>85</td><td>8</td><td>2</td><td>30</td></tr>
+                        <tr><td>Shadow</td><td>Medium</td><td>16</td><td>12</td><td>1/2</td><td>40</td></tr>
+                        <tr><td>Skeleton</td><td>Medium</td><td>13</td><td>13</td><td>1/4</td><td>30</td></tr>
+                        <tr><td>Specter</td><td>Medium</td><td>22</td><td>12</td><td>1</td><td>0</td></tr>
+                        <tr><td>Vampire</td><td>Medium</td><td>144</td><td>16</td><td>13</td><td>30</td></tr>
+                        <tr><td>Vampire Spawn</td><td>Medium</td><td>82</td><td>15</td><td>5</td><td>30</td></tr>
+                        <tr><td>Warhorse Skeleton</td><td>Large</td><td>22</td><td>13</td><td>1/2</td><td>60</td></tr>
+                        <tr><td>Wight</td><td>Medium</td><td>45</td><td>14</td><td>3</td><td>30</td></tr>
+                        <tr><td>Will-O'-Wisp</td><td>Tiny</td><td>22</td><td>19</td><td>2</td><td>0</td></tr>
+                        <tr><td>Wraith</td><td>Medium</td><td>67</td><td>13</td><td>5</td><td>0</td></tr>
+                        <tr><td>Zombie</td><td>Medium</td><td>22</td><td>8</td><td>1/4</td><td>20</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Having this pool organized and queryable lets you design a progression of encounters across a campaign
+                like <em>Curse of Strahd</em>.</p>
 
             <hr>
 
             <!-- SECTION 5 -->
-            <h2>Section 5: Applied Analysis, Balancing a Fight</h2>
+            <h2>Applied Analysis: Balancing a Fight</h2>
 
-            <p class="drop-cap">Balancing combat requires more than random sampling. A good encounter strikes a balance
-                between challenge and fun. One concrete question a DM can ask is: <strong>what is the probability that
-                    my players will hit a given monster on any single attack roll?</strong></p>
+            <p class="drop-cap">Balancing combat requires more than random sampling. One concrete question a DM can ask:
+                <strong>what is the probability that my players will hit a given monster?</strong></p>
 
             <h3>A brief probability primer</h3>
 
@@ -1097,33 +1348,35 @@ my_monster_selection <span class="op">=</span> <span class="fn">@subset</span>(d
             <p>With two special cases from the D&amp;D rules: a natural 20 always hits (minimum 5% chance regardless of
                 AC), and a natural 1 always misses (maximum 95% chance regardless of modifier).</p>
 
-            <p>This is structurally identical to any threshold-detection problem: asking "what fraction of my sensor
-                readings will exceed this alarm threshold?" or "what is the probability a test score falls above the
-                passing grade?"</p>
+            <p>This is structurally identical to any threshold-detection problem in statistics or engineering.</p>
 
             <h3>Calculating hit probabilities across Undead monsters</h3>
 
             <p>We compute hit probability for four scenarios: no modifier, a +5 modifier, and two players with +2 and +7
                 respectively.</p>
 
-            <pre><code><span class="kw">function</span> <span class="fn">calculate_d20_probability</span>(threshold::<span class="typ">Int</span>, modifier::<span class="typ">Int</span>)
+            <pre><code><span class="cmt"># Hit probability for a d20 roll against a given AC</span>
+<span class="kw">function</span> <span class="fn">calculate_d20_probability</span>(threshold::<span class="typ">Int</span>, modifier::<span class="typ">Int</span>)
     effective_threshold <span class="op">=</span> threshold <span class="op">-</span> modifier
+
+    <span class="cmt"># D&amp;D rules: nat 20 always hits, nat 1 always misses</span>
     <span class="kw">if</span> effective_threshold <span class="op">></span> <span class="num">20</span>
         <span class="kw">return</span> <span class="num">0.05</span>  <span class="cmt"># Natural 20 always hits</span>
     <span class="kw">elseif</span> effective_threshold <span class="op"><=</span> <span class="num">1</span>
         <span class="kw">return</span> <span class="num">0.95</span>  <span class="cmt"># Natural 1 always misses</span>
     <span class="kw">else</span>
+        <span class="cmt"># Count how many d20 faces meet the threshold</span>
         favorable_outcomes <span class="op">=</span> <span class="num">21</span> <span class="op">-</span> effective_threshold
         <span class="kw">return</span> favorable_outcomes <span class="op">/</span> <span class="num">20.0</span>
     <span class="kw">end</span>
 <span class="kw">end</span>
 
-<span class="cmt"># Data Preparation</span>
+<span class="cmt"># Load data and filter to Undead only</span>
 df <span class="op">=</span> CSV.<span class="fn">read</span>(<span class="str">"cleaned_monsters_basic.csv"</span>, DataFrame)
 filtered_df <span class="op">=</span> <span class="fn">filter</span>(row <span class="op">-></span> row.monster_type <span class="op">==</span> <span class="str">"Undead"</span>, df)
-<span class="fn">sort!</span>(filtered_df, <span class="sym">:ac</span>)
+<span class="fn">sort!</span>(filtered_df, <span class="sym">:ac</span>)  <span class="cmt"># Order by Armor Class for readable plots</span>
 
-<span class="cmt"># Define scenarios</span>
+<span class="cmt"># Four scenarios: no modifier, +5, and two players (+2 vs +7)</span>
 mod_0 <span class="op">=</span> <span class="num">0</span>
 mod_5 <span class="op">=</span> <span class="num">5</span>
 p1_mod <span class="op">=</span> <span class="num">2</span>
@@ -1140,7 +1393,9 @@ chance_p1 <span class="op">=</span> <span class="fn">calculate_d20_probability</
 chance_p2 <span class="op">=</span> <span class="fn">calculate_d20_probability</span>.(
     <span class="typ">Int</span>.(filtered_df.ac), <span class="fn">Ref</span>(p2_mod))</code></pre>
 
-            <pre><code><span class="cmt"># Plot 1: No Modifier</span>
+            <pre><code><span class="cmt"># --- Three-panel dashboard ---</span>
+
+<span class="cmt"># Plot 1: No Modifier</span>
 p1 <span class="op">=</span> <span class="fn">bar</span>(names, chance_0,
     title <span class="op">=</span> <span class="str">"Base Success (Modifier: 0)"</span>,
     color <span class="op">=</span> <span class="sym">:lightgrey</span>,
@@ -1168,6 +1423,7 @@ p3 <span class="op">=</span> <span class="fn">bar</span>(names, [chance_p1 chanc
     legend <span class="op">=</span> <span class="num">false</span>)
 <span class="fn">hline!</span>([<span class="num">0.5</span>], color<span class="op">=</span><span class="sym">:red</span>, linewidth<span class="op">=</span><span class="num">2</span>, linestyle<span class="op">=</span><span class="sym">:dash</span>)
 
+<span class="cmt"># Combine into a single 3-row figure</span>
 <span class="fn">plot</span>(p1, p2, p3,
     layout <span class="op">=</span> (<span class="num">3</span>, <span class="num">1</span>),
     size <span class="op">=</span> (<span class="num">1200</span>, <span class="num">1200</span>),

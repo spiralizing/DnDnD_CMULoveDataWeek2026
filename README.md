@@ -1,5 +1,5 @@
 # Make Data-Informed Decisions in Your Campaign: Exploring D&D 5th Edition Monster Features Using Julia
-
+![](Figures/2026LDW_banner.png)
 ## Learning Objectives
 
 By the end of this notebook, you will be able to:
